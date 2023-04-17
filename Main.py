@@ -87,7 +87,17 @@ class InputBox:
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
                 else:
-                    self.text += event.unicode
+                    buf = event.unicode
+                    if self.useExtraChar:
+                        self.text += event.unicode
+
+                    elif self.useNum and buf.isnumeric():
+                        self.text += event.unicode
+
+                    elif self.useChar and buf.isalpha():
+                        self.text += event.unicode
+
+                    
                 # Re-render the text.
                 self.txt_surface = FONT.render(self.text, True, self.color)
 
@@ -116,8 +126,11 @@ FONT = pg.font.Font(None, 32)
 txts = ''
 
 input_box1 = InputBox(100, 100, 140, 32)
+input_box1.useChar = True
 input_box2 = InputBox(100, 200, 140, 32)
+input_box2.useChar = True
 input_box3 = InputBox(100, 300, 140, 32)
+input_box3.useNum = True
 input_boxes = [input_box1, input_box2, input_box3]
 
 txtBox1 = TextBox(100,75,"First Name")
@@ -138,7 +151,6 @@ while(run):
         submitButton.b = 200
         txtBox4.color = (200,200,200)
         
-    
     else:
         submitButton.r = 0
         submitButton.g = 0
