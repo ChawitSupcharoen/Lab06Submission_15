@@ -1,15 +1,18 @@
 class Rectangle:
-    def __init__(self,x=0,y=0,w=0,h=0):
+    def __init__(self,x=0,y=0,w=0,h=0,r=0,g=0,b=0):
         self.x = x
         self.y = y 
         self.w = w 
         self.h = h 
+        self.r = r 
+        self.g = g 
+        self.b = b 
     def draw(self,screen):
-        pg.draw.rect(screen,(120,20,220),(self.x,self.y,self.w,self.h))
+        pg.draw.rect(screen,(self.r,self.g,self.b),(self.x,self.y,self.w,self.h))
 
 class Button(Rectangle):
-    def __init__(self, x=0, y=0, w=0, h=0):
-        Rectangle.__init__(self,x,y,w,h)
+    def __init__(self, x=0, y=0, w=0, h=0, r=0, g=0, b=0):
+        Rectangle.__init__(self,x,y,w,h,r,g,b)
 
     def isMouseOn(self):
         mouseX,mouseY = pg.mouse.get_pos()
@@ -26,17 +29,19 @@ pg.init()
 run = True
 win_x, win_y = 800, 480
 screen = pg.display.set_mode((win_x, win_y))
-btn = Button(20,20,100,100)
+btn = Button(20,20,100,100,120,20,220)
 
 while(run):
     screen.fill((255, 255, 255))
     if btn.isMouseOn():
-        btn.w = 200
-        btn.h = 300
+        btn.r = 150
+        btn.g = 150
+        btn.b = 150
         
     else:
-        btn.w = 100
-        btn.h = 100
+        btn.r = 255
+        btn.g = 0
+        btn.b = 0
         
     btn.draw(screen)
     
