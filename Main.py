@@ -29,7 +29,12 @@ class Button(Rectangle):
             return False
 
 import sys 
+import time
 import pygame as pg
+
+longClick = False
+notClickYet = True
+lastClick = 0
 
 pg.init()
 run = True
@@ -41,6 +46,20 @@ while(run):
     screen.fill((255, 255, 255))
     
     if btn.isMouseClick():
+        if notClickYet:
+            lastClick = pg.time.get_ticks()
+            notClickYet = False
+
+        else:
+            if(pg.time.get_ticks() - lastClick >= 500):
+                longClick = True
+
+    else:
+        longClick = False
+        notClickYet = True
+        longClick = False
+
+    if longClick:
         btn.r = 120
         btn.g = 20
         btn.b = 220
