@@ -52,6 +52,7 @@ class TextBox:
 
     def draw(self, Screen):
         # Blit the text.
+        self.txt_surface = FONT.render(self.text, True, self.color)
         Screen.blit(self.txt_surface, (self.x, self.y))
 
 class InputBox:
@@ -61,6 +62,9 @@ class InputBox:
         self.text = text
         self.txt_surface = FONT.render(self.text, True, self.color)
         self.active = False
+        self.useNum = False
+        self.useChar = False
+        self.useExtraChar = False
 
     def handle_event(self, event):
         
@@ -109,6 +113,7 @@ screen = pg.display.set_mode((win_x, win_y))
 COLOR_INACTIVE = pg.Color('lightskyblue3') 
 COLOR_ACTIVE = pg.Color('dodgerblue2')
 FONT = pg.font.Font(None, 32)
+txts = ''
 
 input_box1 = InputBox(100, 100, 140, 32)
 input_box2 = InputBox(100, 200, 140, 32)
@@ -119,12 +124,26 @@ txtBox1 = TextBox(100,75,"First Name")
 txtBox2 = TextBox(100,175,"Last Name")
 txtBox3 = TextBox(100,275,"Age")
 txtBox4 = TextBox(610,335,"Submit")
-txtBoxes = [txtBox1, txtBox2, txtBox3, txtBox4]
+txtBox5 = TextBox(100,425, txts)
+txtBoxes = [txtBox1, txtBox2, txtBox3, txtBox4, txtBox5]
 
-submitButton = Button(600,300,100,100,0,0,0,2)
+submitButton = Button(600,300,100,100,0,0,0,5)
 
 while(run):
     screen.fill((255, 255, 255))
+
+    if submitButton.isMouseOn():
+        submitButton.r = 200
+        submitButton.g = 200
+        submitButton.b = 200
+        txtBox4.color = (200,200,200)
+        
+    
+    else:
+        submitButton.r = 0
+        submitButton.g = 0
+        submitButton.b = 0
+        txtBox4.color = (0,0,0)
 
     for box in input_boxes:
         box.update() 
@@ -141,14 +160,7 @@ while(run):
             box.handle_event(event)
 
         if submitButton.isMouseClick(event):
-            submitButton.r = 100
-            submitButton.g = 100
-            submitButton.b = 100
-
-        else:
-            submitButton.r = 0
-            submitButton.g = 0
-            submitButton.b = 0 
+            txtBox5.text = "Hello " + input_box1.text + " " + input_box2.text + "! You are " + input_box3.text + " years old." 
 
         if event.type == pg.QUIT:
             pg.quit()
