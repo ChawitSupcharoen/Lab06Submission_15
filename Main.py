@@ -172,7 +172,17 @@ while(run):
             box.handle_event(event)
 
         if submitButton.isMouseClick(event):
-            txtBox5.text = "Hello " + input_box1.text + " " + input_box2.text + "! You are " + input_box3.text + " years old." 
+            txtBox5.text = "Hello " + input_box1.text.capitalize() + " " + input_box2.text.capitalize() + "! You are " + input_box3.text + " years old." 
+
+
+            if input_box3.text == '':
+                txtBox5.text = "Missing age"
+
+            if input_box2.text == '':
+                txtBox5.text = "Missing last name"
+
+            if input_box1.text == '':
+                txtBox5.text = "Missing first name"
 
         if event.type == pg.QUIT:
             pg.quit()
