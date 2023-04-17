@@ -29,56 +29,34 @@ class Button(Rectangle):
             return False
 
 import sys 
-import time
 import pygame as pg
-
-longClick = False
-notClickYet = True
-lastClick = 0
 
 pg.init()
 run = True
 win_x, win_y = 800, 480
 screen = pg.display.set_mode((win_x, win_y))
-btn = Button(20,20,100,100,120,20,220)
+obj = Rectangle(350,190,100,100,120,20,220)
 
 while(run):
     screen.fill((255, 255, 255))
-    
-    if btn.isMouseClick():
-        if notClickYet:
-            lastClick = pg.time.get_ticks()
-            notClickYet = False
-
-        else:
-            if(pg.time.get_ticks() - lastClick >= 500):
-                longClick = True
-
-    else:
-        longClick = False
-        notClickYet = True
-        longClick = False
-
-    if longClick:
-        btn.r = 120
-        btn.g = 20
-        btn.b = 220
-    
-    elif btn.isMouseOn():
-        btn.r = 150
-        btn.g = 150
-        btn.b = 150
         
-    else:
-        btn.r = 255
-        btn.g = 0
-        btn.b = 0
-        
-    btn.draw(screen)
+    obj.draw(screen)
     
     pg.display.update()
     
     for event in pg.event.get():
+        if event.type == pg.KEYDOWN and event.key == pg.K_a:
+            obj.x -= 10
+        
+        if event.type == pg.KEYDOWN and event.key == pg.K_d:
+            obj.x += 10
+        
+        if event.type == pg.KEYDOWN and event.key == pg.K_w:
+            obj.y -= 10
+
+        if event.type == pg.KEYDOWN and event.key == pg.K_s:
+            obj.y += 10
+            
         if event.type == pg.QUIT:
             pg.quit()
             run = False
