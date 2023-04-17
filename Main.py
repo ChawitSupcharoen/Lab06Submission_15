@@ -46,7 +46,7 @@ class TextBox:
     def __init__(self, x, y, text=''):
         self.x = x
         self.y = y
-        self.color = (0,0,0)
+        self.color = (77, 38, 0)
         self.text = text
         self.txt_surface = FONT.render(self.text, True, self.color)
 
@@ -120,8 +120,8 @@ run = True
 win_x, win_y = 800, 480
 screen = pg.display.set_mode((win_x, win_y))
 
-COLOR_INACTIVE = pg.Color('lightskyblue3') 
-COLOR_ACTIVE = pg.Color('dodgerblue2')
+COLOR_INACTIVE = (77, 38, 0)
+COLOR_ACTIVE = (179, 89, 0)
 FONT = pg.font.Font(None, 32)
 txts = ''
 
@@ -140,22 +140,22 @@ txtBox4 = TextBox(610,335,"Submit")
 txtBox5 = TextBox(100,425, txts)
 txtBoxes = [txtBox1, txtBox2, txtBox3, txtBox4, txtBox5]
 
-submitButton = Button(600,300,100,100,0,0,0,5)
+submitButton = Button(600,300,100,100,77, 38, 0,5)
 
 while(run):
-    screen.fill((255, 255, 255))
+    screen.fill((255, 229, 204))
 
     if submitButton.isMouseOn():
-        submitButton.r = 200
-        submitButton.g = 200
-        submitButton.b = 200
-        txtBox4.color = (200,200,200)
+        submitButton.r = 121
+        submitButton.g = 64
+        submitButton.b = 6
+        txtBox4.color = (121, 64, 6)
         
     else:
-        submitButton.r = 0
-        submitButton.g = 0
+        submitButton.r = 77
+        submitButton.g = 38
         submitButton.b = 0
-        txtBox4.color = (0,0,0)
+        txtBox4.color = (77, 38, 0)
 
     for box in input_boxes:
         box.update() 
