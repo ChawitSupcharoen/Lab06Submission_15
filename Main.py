@@ -20,7 +20,13 @@ class Button(Rectangle):
             return True
         else:
             return False
-
+    
+    def isMouseClick(self):
+        lClick, mClick, rClick = pg.mouse.get_pressed()
+        if(self.isMouseOn() and lClick):
+            return True
+        else:
+            return False
 
 import sys 
 import pygame as pg
@@ -33,7 +39,13 @@ btn = Button(20,20,100,100,120,20,220)
 
 while(run):
     screen.fill((255, 255, 255))
-    if btn.isMouseOn():
+    
+    if btn.isMouseClick():
+        btn.r = 120
+        btn.g = 20
+        btn.b = 220
+    
+    elif btn.isMouseOn():
         btn.r = 150
         btn.g = 150
         btn.b = 150
